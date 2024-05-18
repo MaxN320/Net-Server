@@ -5,5 +5,5 @@
  
 #[开头的表示组信息，也等价于注释行
 [Socket]
-Ip = 127.0.0.1
+ListenIp = 127.0.0.1
 ListenPort = 5678    

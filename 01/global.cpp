@@ -6,11 +6,11 @@
 #include "global.h"
 
 //一些和字符串处理相关的函数，准备放这里
-
+/*
 extern char **g_os_argv;
 extern char *gp_envm;
 extern int g_environlen;
-
+*/
 
 //截取字符串尾部空格
 void Rtrim(char *string)
@@ -54,9 +54,9 @@ void Ltrim(char *string)
     return;
 }
 
-
+/*
 //设置可执行程序标题相关函数：分配内存，并且把环境变量拷贝到新内存中来
-void ngx_init_setproctitle()
+void init_setproctitle()
 {    
     int i;
     //统计环境变量所占的内存。注意判断方法是environ[i]是否为空作为环境变量结束标记
@@ -83,7 +83,7 @@ void ngx_init_setproctitle()
 }
 
 //设置可执行程序标题
-void ngx_setproctitle(const char *title)
+void setproctitle(const char *title)
 {
     //我们假设，所有的命令 行参数我们都不需要用到了，可以被随意覆盖了；
     //注意：我们的标题长度，不会长到原始标题和原始环境变量都装不下，否则怕出问题，不处理
@@ -120,3 +120,4 @@ void ngx_setproctitle(const char *title)
     memset(ptmp,0,cha);  
     return;
 }
+*/

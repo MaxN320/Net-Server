@@ -4,8 +4,9 @@
 
 class Config
 {
-private:
-    static Config& Getinstance();
+public:
+    static Config* Getinstance();
+    ~Config();
 private:
     Config();
 public:
@@ -14,9 +15,3 @@ public:
     int GetIntDefault(const char *p_itemname,const int def);
     std::vector<LPCConfiItem> m_ConfigItemList;  // 存储配置信息的表
 };
-
-Config& Config::Getinstance(){
-    static Config m_instance;
-    return m_instance;
-}
-
