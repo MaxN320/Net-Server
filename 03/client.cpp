@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     
     Config *p=Config::Getinstance();
     p->Load("configure");
-    string IP=p->GetString("ListenIp");
+    string IP=("43.139.2.42");
     int Port=p->GetIntDefault("ListenPort",9999);
 
     int sockfd;
@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
 
     printf("connect ok.\n");
     // printf("开始时间：%d",time(0));
+     
 
     for (int ii=0;ii<200000;ii++)
     {
