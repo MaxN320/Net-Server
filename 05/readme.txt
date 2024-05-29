@@ -138,7 +138,7 @@ public:
         struct epoll_event
                 {
                 uint32_t events;   //要监听的事件
-                epoll_data_t data;  // 
+                epoll_data_t data;  // 联合体
                 }
     }
     typedef union  epoll_data{
@@ -150,6 +150,8 @@ public:
 
 Channel 之前都是用 epoll_data.fd 来直接通信
 Channel 之后用 epoll_data.ptr 指向Channel
+              再使用Channel类进行携带上一堆
+              附加信息，来应对各种事件
 
 使用fd套接字和epoll类 来初始化channel 一个Channel一个fd_  多个Channel一个ep_
 fd是一个套接字  EPOLL类 _ep对应多个 fd  fd和ep_ 多对一的关系
@@ -160,3 +162,5 @@ fd是一个套接字  EPOLL类 _ep对应多个 fd  fd和ep_ 多对一的关系
     现在我们在中间加入一个 Channel类封装 fd和 此fd对应的操作 
     以后不直接使用fd 而是使用Channel类来创建 
 }
+
+十分的优雅！！！
