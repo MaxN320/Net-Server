@@ -88,6 +88,7 @@ public:
 
 04 -----
 添加了一个Epoll类 负责将涉及到EPOll的操作 都封装起来了
+(添加监听事件 返回所有的监听事件（有就） )
 
 // Epoll类。
 class Epoll
@@ -104,5 +105,5 @@ public:
     std::vector<epoll_event> loop(int timeout=-1);   // 运行epoll_wait()，等待事件的发生，已发生的事件用vector容器返回。
 };
 
-这次是在EPoll：：loop中调用int epfd=epoll_wait()
-没检测到事件  或者检测超时在EPoll：：loop中就已经处理好了
+这次是在EPoll::loop中调用int epfd=epoll_wait();
+没检测到事件或者检测超时在EPoll：：loop中就已经处理好了
