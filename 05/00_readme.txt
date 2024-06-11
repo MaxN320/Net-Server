@@ -174,6 +174,8 @@ fd是一个套接字  EPOLL类 _ep对应多个 fd  fd和ep_ 多对一的关系
     我们都直接使用 fd 进行创建    epooll_ctl（）进行控制
     现在我们在中间加入一个 Channel类封装 fd和 此fd对应的操作 
     以后不直接使用fd 而是使用Channel类来创建 
+
+    因为此类的出现，epoll_event不在需要，将ep.loop函数返回值 更改为vector<channel>
 }
 
 十分的优雅！！！
