@@ -39,7 +39,7 @@ int main()
 
     Epoll ep;
     Channel * servchannel=new Channel(&ep,servsock.fd());
-   servchannel->enablereading();
+    servchannel->enablereading();
 
     while (true)
     {

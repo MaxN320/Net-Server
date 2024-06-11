@@ -88,6 +88,7 @@ public:
 
 04 -----
 添加了一个Epoll类 负责将涉及到EPOll的操作 都封装起来了
+(添加监听事件 返回所有的监听事件（有就） )
 
 // Epoll类。
 class Epoll
@@ -103,6 +104,14 @@ public:
     void addfd(int fd, uint32_t op);                             // 把fd和它需要监视的事件添加到红黑树上。
     std::vector<epoll_event> loop(int timeout=-1);   // 运行epoll_wait()，等待事件的发生，已发生的事件用vector容器返回。
 };
+
+主程序死循环{
+    evs = loop();
+    for(auto b: evs)
+        处理逻辑
+    这次是在EPoll::loop中调用int epfd=epoll_wait(); 
+    没检测到事件或者检测超时在EPoll：：loop中就已经处理好了
+}
 
 05-----新增Channel类
 
@@ -157,6 +166,10 @@ Channel 之后用 epoll_data.ptr 指向Channel
 fd是一个套接字  EPOLL类 _ep对应多个 fd  fd和ep_ 多对一的关系
 
 {
+    {
+        有新连接 的话逻辑如下：
+        ch.fd=监听  -》 ch.enablereading -> ep_->updateChannel(this) -> 创建event ev.data.ptr=参数
+    }
     以前无论是监听套接字的创建 还是 新连接套接字的创建
     我们都直接使用 fd 进行创建    epooll_ctl（）进行控制
     现在我们在中间加入一个 Channel类封装 fd和 此fd对应的操作 
