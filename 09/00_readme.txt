@@ -206,6 +206,7 @@ run函数封装了 运行事件的循环
 09 ----
 对EvnetLoop类做更新
 使其完全替代Epoll类 对Epoll类做了又一层次的封装
+channel类使用封装了epoll的EventLoop类初始化
 
-EventLoop类中有个成员变量Epoll
-Channel类不使用Epoll类，使用EventLoop类
+EventLoop类中有个成员变量Epoll类变量
+
