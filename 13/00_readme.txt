@@ -237,3 +237,58 @@ Acceptor类 应该负责 创建连接套接字并设置新连接套接字的读�
 最终 Acceptor也不负责创建Connection
 
 还是职责分化，TcpServeer创建Accptor和Connection 显然更加合理
+
+
+// 此时流程
+// 1.  TcpServer使用命令行参数获取ip以及端口号 
+//     {    
+            accept_ = new Acceptor(loop_,ip,port);
+            Acceptor的初始化中 使用TcpServer传进来的 Eventloop_ ip port
+            {
+                根据ip和port生成InetAddress成员
+                生成一个Socket成员
+                创建acceptchannel将传进来的loop_ 和 Socket的fd绑定到一起
+                为当前acceptchannel类设置 读的回调函数 
+                    acceptchannel_->setreadcallback(std::bind(&Acceptor::newconnection,this));
+                    acceptchannel_->enablereading();       // 让epoll_wait()监视servchannel的读事件。 
+                    {
+                        loop_->updatechannel(this);
+                        {
+                            ep_->updateChannel(ch);
+                            {
+                                为当前EPoll类添加了一个读事件epoll_event ev;
+                                        ev.data.ptr=ch;将channel和ptr绑定到一块
+                            }
+                        }
+                    }
+            }
+//     }
+// 2.  注册完成之后，运行TcpServer.start函数
+//      {
+            loop_.run();  //仅此一行
+            {
+                通过先前设置的ev.data.ptr=ch 来取出channel对象，fd和channel绑定时，注册了读事件的处理函数
+                调用channel类的handlevent函数  主要负责处理各种事件 读事件就调用读回调函数
+
+                如果有读事件（连接事件） 通过先前设置好的读回调函数 ->  函数指针 与 回调函数
+                -> Channel  std::function<void()> readcallback_;    
+                -> Acceptor std::function<void(Socket*)> newconnectioncb_;
+
+                channel::readcallback_  -> Acceptor::newconnection
+                Acceptor::newconnectioncb_ -> TcpServer::newconnection(Socket*clientsock)
+            }
+        }
+
+    3.  如果有连接事件到来，先调用 channel::readcallback_  -> Acceptor::newconnection 
+        再调用Acceptor::newconnectioncb_ -> TcpServer::newconnection(Socket*clientsock)
+    TcpServer::newconnection(Socket*clientsock)
+    {
+        Connection *conn=new Connection(&loop_,clientsock);   // 这里new出来的对象没有释放，这个问题以后再解决  仅此一句
+        {
+            通过Acceptor类中的servsock来 accpet（）；
+            clientchannel_->setreadcallback(std::bind(&Channel::onmessage,clientchannel_));设置fd_读事件的回调函数。
+            将当前fd添加到红黑树上
+        }
+    }
+
+    3.  继续执行 loop_.run();  

@@ -6,4 +6,4 @@
 #[开头的表示组信息，也等价于注释行
 [Socket]
 ListenIp = 192.168.108.130
-ListenPort = 5678    
+ListenPort = 8888   

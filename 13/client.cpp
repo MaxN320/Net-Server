@@ -15,8 +15,8 @@ int main(int argc, char *argv[])
     
     Config *p=Config::Getinstance();
     p->Load("configure");
-    string IP=("43.139.2.42");
-    int Port=p->GetIntDefault("ListenPort",9999);
+    string IP=("192.168.108.130");
+    int Port=p->GetIntDefault("ListenPort",8888);
 
     int sockfd;
     struct sockaddr_in servaddr;

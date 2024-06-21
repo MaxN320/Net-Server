@@ -15,7 +15,7 @@ void Acceptor::newconnection()
     newconnectioncb_(clientsock);
 }
 
-Acceptor::Acceptor(EventLoop* loop,const std::string &ip,const uint16_t port)
+Acceptor::Acceptor(EventLoop* loop,const std::string &ip,const uint16_t port):loop_(loop)
 {
     servsock_=new Socket(createnonblocking());   
     InetAddress servaddr(ip,port);             // 服务端的地址和协议。
