@@ -297,13 +297,7 @@ Acceptor类 应该负责 创建连接套接字并设置新连接套接字的读�
 整体逻辑没有变化
 为了在TcpServer中定义了map对象 map<文件描述符,Connection*>
 在Socket中定义 ip,port  (bind中 和 accept中)
-在Connection中定义 ip port （使用socket的ip，port）
-
-{
-    似乎有点多此一举，Connection中有Socket类
-    直接返回 Socket.ip  Socket.port;
-    不就剩下两个变量的空间
-}
+在Connection中定义 ip port函数 （使用socket的ip，port）
 
 
 15 ----
