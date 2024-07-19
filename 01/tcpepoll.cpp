@@ -40,7 +40,7 @@ int main()
     Config *p=Config::Getinstance();
     p->Load("configure");
     string IP=p->GetString("ListenIp");
-    int Port=p->GetIntDefault("ListenPort",9999);
+    int Port=p->GetIntDefault("ListenPort",8888);
 
 
     struct sockaddr_in servaddr;                                  // 服务端地址的结构体。

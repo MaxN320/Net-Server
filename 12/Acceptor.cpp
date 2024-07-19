@@ -22,7 +22,7 @@ void Acceptor::newconnection()
     Connection *conn=new Connection(loop_,clientsock);   // 这里new出来的对象没有释放，这个问题以后再解决。
 }
 
-Acceptor::Acceptor(EventLoop* loop,const std::string &ip,const uint16_t port)
+Acceptor::Acceptor(EventLoop* loop,const std::string &ip,const uint16_t port):loop_(loop)
 {
     servsock_=new Socket(createnonblocking());   
     InetAddress servaddr(ip,port);             // 服务端的地址和协议。

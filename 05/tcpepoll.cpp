@@ -26,7 +26,7 @@ int main()
     Config *p = Config::Getinstance();
     p->Load("configure");
     string IP = p->GetString("ListenIp");
-    int Port = p->GetIntDefault("ListenPort", 9999);
+    int Port = p->GetIntDefault("ListenPort", 8888);
 
     Socket servsock(createnonblocking());
     InetAddress servaddr(IP.c_str(), Port);

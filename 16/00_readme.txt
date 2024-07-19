@@ -324,3 +324,6 @@ void errorconnection(Connection *conn);  // 客户端的连接错误，在Connec
 让TcpServer类来处理Connection成员变量的错误以及断开。彻底管理COnnection类的生命周期
 
 更加完善了
+
+
+17-------
