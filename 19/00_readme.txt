@@ -354,3 +354,8 @@ Connection::onmessage中回调TCPServer::onmessage
 然后调用 Connection::send函数{
     保存到发送缓冲区 注册写事件
 }
+然后TcpServer中的start函数就会运行
+{
+    抓到写事件，然后调用channel.writecallback
+    继续回调
+}

@@ -97,3 +97,7 @@ void Channel::seterrorcallback(std::function<void ()>fn)
 {
     errorcallback_=fn;
 }
+void Channel::setwritecallback(std::function<void()>fn)
+{
+    writecallback_=fn;
+}
