@@ -348,7 +348,7 @@ Connection::onmessage中又回调了TcpServer::TcpServer::onmessage（这个函�
 
 
 19------
-channel类中新增 写事件 以及写事件的函数指针初始化为（COnnecton::onmessage）
+channel类中新增 写事件 以及写事件的函数指针初始化为（Connecton::onmessage）
 如果可读就调用 COnnection::onmessage
 Connection::onmessage中回调TCPServer::onmessage
 然后调用 Connection::send函数{
