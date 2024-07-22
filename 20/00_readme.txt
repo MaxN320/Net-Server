@@ -364,8 +364,10 @@ Connection::onmessage中回调TCPServer::onmessage
 没做什么大的改动
 在Connection类中新增了一个 发送完成函数指针  sendcompeltecallback_
 writecallback中如果发送完成 在设置disablewrtie后 调用sendcompeletecallback_;
-
     void sendcomplete(Connection *conn);     // 数据发送完成后，在Connection类中回调此函数。{具体实现字写}
+在EventLoop类中新增 超时函数指针  epolltimeoutcallback_
+如果调用 epoll_wait调用失败就执行 epolltimeoutcallback_
     void epolltimeout(EventLoop *loop);         // epoll_wait()超时，在EventLoop类中回调此函数。 {具体实现字写}
+    
 Tcpserver中每一个connection都要设置 sendcomplete(Connection *conn); 
 为loop设置epolltimeout(EventLoop *loop);      
