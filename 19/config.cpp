@@ -68,7 +68,7 @@ bool Config::Load(const char *pconfName)
         
         
     }
-    fclose(fp);
+    ffp);
     return true;
 }
 
