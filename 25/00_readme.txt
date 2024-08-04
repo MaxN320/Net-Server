@@ -386,5 +386,51 @@ Tcpserver中每一个connection都要设置 sendcomplete(Connection *conn);
 创建多个事件循环
 一个主事件循环 多个从事件循环
 主事件循环负责 监听端口，当来新连接时。
-新连接自动放入从事件循环
+新连接自动放入从事件循环{
+    从事件循环绑定ep.run函数
+    {
+        对Connection连接 发送过来的报文进行 读取 提取 经过特定的计算 发送给Connection
+    }
+}
+25------
+在EchoServer中新增加了一个线程池 名为工作线程
 
+24的从事件循环{
+    从事件循环绑定ep.run函数
+    {
+        对Connection连接 发送过来的报文进行 读取 提取 经过特定的计算 发送给Connection
+    }
+}
+
+
+25的从事件循环{
+    从事件循环绑定ep.run函数
+    {
+        对Connection连接 发送过来的报文进行 读取 提取 然后向上传递给EchoServer
+    }
+}
+
+EchoServer的线程池
+{
+    经过特定的计算 发送给Connection
+}
+将原来的HandleMessage函数分解成两个函数
+{
+    HandleMessage负责添加到线程池的任务队列
+    onMessage负责 计算 发送
+}
+
+void EchoServer::HandleMessage(Connection *conn,std::string& message)     
+{
+    // printf("EchoServer::HandleMessage() thread is %d.\n",syscall(SYS_gettid));
+    // 把业务添加到线程池的任务队列中。
+    threadpool_.addtask(std::bind(&EchoServer::OnMessage,this,conn,message));
+}
+
+ // 处理客户端的请求报文，用于添加给线程池。
+ void EchoServer::OnMessage(Connection *conn,std::string& message)     
+ {
+    // 在这里，将经过若干步骤的运算。
+    message="reply:"+message;          // 回显业务。
+    conn->send(message.data(),message.size());   // 把数据发送出去。
+ }
