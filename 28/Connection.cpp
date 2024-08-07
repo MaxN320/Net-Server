@@ -132,8 +132,3 @@ void Connection::writecallback()
         sendcompletecallback_(shared_from_this());       
     }
 }
-
-void Connection::setsendcompletecallback(std::function<void(spConnection)> fn)
-{
-    sendcompletecallback_=fn;
-}

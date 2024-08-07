@@ -4,7 +4,7 @@
 #include "Channel.h"
 class Channel;
 class Epoll;
-
+#include <memory>
 #include <unistd.h>
 #include <sys/syscall.h>
 
