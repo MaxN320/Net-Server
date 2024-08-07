@@ -551,3 +551,12 @@ I/O线程监听事件循环，有连接的写事件，则会将输出缓冲区�
     }
  }
     
+
+
+此讲解决了线程不安全的问题：通过在EventLoop中添加元素
+是I/O线程则调用sendinloop
+
+是工作线程调用void EventLoop::queueinloop(std::function<void()> fn) 
+      此函数主要做的是 将I/O线程调用的sendinloop函数通过函数指针的方式添加到EventLoop类的任务队列中
+      然后给Eventloop注册读事件处理函数（上面的sendinloop），监听读事件。再给此监听fd写入一个值。来唤醒事件循环
+    此时工作线程执行结束，I/O线程因为监听了eventfd的读事件，eventfd从任务队列里开始执行sendinloop函数
