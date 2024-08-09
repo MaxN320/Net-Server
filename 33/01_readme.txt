@@ -55,3 +55,22 @@ EventLoop类添加成员
     void settimercallback(std::function<void(int)> fn);  // 将被设置为TcpServer::removeconn()  // 从TcpServer的map中删除超时的conn。
 
 改写handtimer，其调用for循环查找当前事件循环的所有的COnnection 判断是否超时
+
+
+
+
+33-----
+没做什么事情。添加了stop函数
+TcpServer EventLoop threadpool;
+
+EchoServer中的stop
+{
+    threadpool.stop()； //结束工作线程
+    TcpServer.stop();  //结束I/O线程
+}
+
+TcpServer.stop调用Eventloop的stop；
+{
+    Eventloop添加atomic_bool 
+    handleevent每次都判断atomic_bool 为真就结束
+}
