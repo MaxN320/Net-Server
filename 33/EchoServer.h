@@ -21,4 +21,6 @@ public:
     // void HandleTimeOut(EventLoop *loop);                   // epoll_wait()超时，在TcpServer类中回调此函数。
 
     void OnMessage(spConnection conn,std::string& message);     // 处理客户端的请求报文，用于添加给线程池。
+
+    void Stop();
 };

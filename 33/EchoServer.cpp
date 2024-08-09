@@ -89,3 +89,10 @@ void EchoServer::HandleTimeOut(EventLoop *loop)
     // 根据业务的需求，在这里可以增加其它的代码。
 }
 */
+
+void EchoServer::Stop()
+{
+    threadpool_.stop();  //停止工作线程
+    tcpserver_.stop();  // I/O线程
+
+}
